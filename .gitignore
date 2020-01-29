@@ -24,3 +24,9 @@ hs_err_pid*
 
 #intellij idea
 .idea
+
+#allure report
+allure-results
+
+#generated and/or compiled code
+target
