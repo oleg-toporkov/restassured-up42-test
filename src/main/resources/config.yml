@@ -1,0 +1,7 @@
+!!com.up42.api.properties.Config
+host: https://api.up42.com
+
+# TODO will be better to store it more secure and/or pass it as env variable
+project:
+  id: 1d9e3f9d-a4b2-479d-af10-d3cc6473cf48
+  key: xTRyBBkK.zJbKawuuR5TIEIqKgNuqrF9Q5MBJyk9GIbN
