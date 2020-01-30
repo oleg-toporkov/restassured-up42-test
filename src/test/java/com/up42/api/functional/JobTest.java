@@ -47,7 +47,7 @@ public class JobTest {
                 .limit(1)
                 .zoomLevel(14)
                 .build();
-        JobCreateRequestDto jobCreateRequestDto = JobCreateRequestDto.builder()
+        JobCreateRequestDto jobCreateRequestDto = JobCreateRequestDto.builder() //TODO better to use dry run
                 .sharpening(sharpeningDto)
                 .soblooS2L1cAoiclipped(soblooS2L1cAoiclippedDto)
                 .build();
