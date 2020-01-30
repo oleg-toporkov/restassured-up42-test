@@ -32,6 +32,7 @@ public class TaskTest {
                 .build();
 
         TaskClient.createTask(testWorkflowId, firstTask, secondTask);
+        // TODO add assertions and pojos
     }
 
 

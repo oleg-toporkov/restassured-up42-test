@@ -27,6 +27,7 @@ hs_err_pid*
 
 #allure report
 allure-results
+.allure
 
 #generated and/or compiled code
 target
