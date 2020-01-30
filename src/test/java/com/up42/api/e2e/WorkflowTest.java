@@ -1,13 +1,12 @@
 package com.up42.api.e2e;
 
-import com.up42.api.auth.OAuthClient;
+import com.up42.api.clients.auth.OAuthClient;
+import com.up42.api.clients.workflow.WorkflowClient;
 import com.up42.api.constants.Endpoints;
-import com.up42.api.dtos.login.LoginResponseDto;
 import com.up42.api.dtos.workflow.CreateWorkflowRequestDto;
 import com.up42.api.dtos.workflow.CreateWorkflowResponseDto;
 import com.up42.api.properties.TestProperties;
 import io.restassured.http.ContentType;
-import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,7 +24,7 @@ public class WorkflowTest {
 
     @BeforeEach
     void getAccessToken() {
-        String token = OAuthClient.loginAsDefaultUser();
+        String token = OAuthClient.loginAsDefaultUser().getAccessToken();
         accessToken.set(token);
     }
 
@@ -60,19 +59,9 @@ public class WorkflowTest {
 
     @AfterEach
     void cleanupWorkflow() {
-        if (workflowId.get() == null) return;
-
-        //@formatter:off
-        given()
-                .spec(BASE_REQUEST_SPEC)
-                .auth()
-                .oauth2(accessToken.get()).
-        when()
-                .delete(Endpoints.WORKFLOWS_WITH_ID, TestProperties.CONFIG.getProject().getId(), workflowId.get()).
-        then()
-                .statusCode(HttpStatus.SC_NO_CONTENT);
-        //@formatter:on
-
+        if (workflowId.get() != null) {
+            WorkflowClient.deleteWorkflow(accessToken.get(), workflowId.get());
+        }
     }
 
 }
