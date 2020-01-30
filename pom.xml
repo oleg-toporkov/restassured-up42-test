@@ -10,6 +10,7 @@
 
     <properties>
         <allure.version>2.13.1</allure.version>
+        <awaitility.version>4.0.2</awaitility.version>
         <commons.lang.version>3.9</commons.lang.version>
         <hamcrest.version>2.2</hamcrest.version>
         <jackson.version>2.10.2</jackson.version>
@@ -87,6 +88,12 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>${commons.lang.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.awaitility</groupId>
+            <artifactId>awaitility</artifactId>
+            <version>${awaitility.version}</version>
         </dependency>
 
     </dependencies>

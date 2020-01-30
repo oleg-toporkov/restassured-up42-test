@@ -1,11 +1,9 @@
 package com.up42.api.functional;
 
-import com.up42.api.clients.auth.OAuthClient;
 import com.up42.api.clients.workflow.WorkflowClient;
 import com.up42.api.dtos.workflow.CreateWorkflowResponseDto;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
