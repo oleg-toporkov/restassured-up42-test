@@ -17,14 +17,6 @@ import static org.hamcrest.Matchers.is;
 
 public class WorkflowNegativeTest {
 
-    private ThreadLocal<String> accessToken = ThreadLocal.withInitial(() -> null);
-
-    @BeforeEach
-    void getAccessToken() {
-        String token = OAuthClient.loginAsDefaultUser().getAccessToken();
-        accessToken.set(token);
-    }
-
     @Test
     void createWorkflowEmptyName() {
         String workflowDescription = String.format("createWorkflowEmptyName %s description", ThreadLocalRandom.current().nextInt());
@@ -36,8 +28,6 @@ public class WorkflowNegativeTest {
         //@formatter:off
         given()
                 .spec(BASE_REQUEST_SPEC)
-                .auth()
-                .oauth2(accessToken.get())
                 .contentType(ContentType.JSON)
                 .body(createWorkflowBody).
         when()

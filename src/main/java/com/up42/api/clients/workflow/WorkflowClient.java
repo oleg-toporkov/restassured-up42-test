@@ -13,7 +13,7 @@ import static io.restassured.RestAssured.given;
 
 public class WorkflowClient {
 
-    public static CreateWorkflowResponseDto createWorkflow(String accessToken, String name, String description) {
+    public static CreateWorkflowResponseDto createWorkflow(String name, String description) {
         CreateWorkflowRequestDto createWorkflowBody = CreateWorkflowRequestDto.builder()
                 .name(name)
                 .description(description)
@@ -22,8 +22,6 @@ public class WorkflowClient {
         //@formatter:off
         return given()
                         .spec(BASE_REQUEST_SPEC)
-                        .auth()
-                        .oauth2(accessToken)
                         .contentType(ContentType.JSON)
                         .body(createWorkflowBody).
                 when()
@@ -36,12 +34,10 @@ public class WorkflowClient {
         //@formatter:on
     }
 
-    public static void deleteWorkflow(String accessToken, String workflowId) {
+    public static void deleteWorkflow(String workflowId) {
         //@formatter:off
         given()
-                .spec(BASE_REQUEST_SPEC)
-                .auth()
-                .oauth2(accessToken).
+                .spec(BASE_REQUEST_SPEC).
         when()
                 .delete(Endpoints.WORKFLOWS_WITH_ID, TestProperties.CONFIG.getProject().getId(), workflowId).
         then()
