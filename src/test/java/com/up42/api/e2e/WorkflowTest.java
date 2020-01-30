@@ -91,7 +91,7 @@ public class WorkflowTest {
                 .auth()
                 .oauth2(responseDto.getAccessToken()).
         when()
-                .delete(Endpoints.WORKFLOWS + workflowId.get(), TestProperties.CONFIG.getProject().getId()).
+                .delete(Endpoints.WORKFLOWS_WITH_ID, TestProperties.CONFIG.getProject().getId(), workflowId.get()).
         then()
                 .statusCode(HttpStatus.SC_NO_CONTENT);
         //@formatter:on
