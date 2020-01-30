@@ -10,6 +10,7 @@
 
     <properties>
         <allure.version>2.13.1</allure.version>
+        <commons.lang.version>3.9</commons.lang.version>
         <hamcrest.version>2.2</hamcrest.version>
         <jackson.version>2.10.2</jackson.version>
         <junit.version>5.6.0</junit.version>
@@ -37,6 +38,12 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-params</artifactId>
             <version>${junit.version}</version>
         </dependency>
 
@@ -75,6 +82,13 @@
             <artifactId>hamcrest</artifactId>
             <version>${hamcrest.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${commons.lang.version}</version>
+        </dependency>
+
     </dependencies>
     
 </project>
