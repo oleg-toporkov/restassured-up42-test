@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class CreateWorkflowResponseDto {
 
-    public String error;
-    public WorkflowDataDto data;
+    private String error;
+    private WorkflowDataDto data;
 
 }
