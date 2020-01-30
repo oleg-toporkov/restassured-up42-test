@@ -1,12 +1,10 @@
-package com.up42.api.e2e.negative;
+package com.up42.api.functional.negative;
 
-import com.up42.api.clients.auth.OAuthClient;
 import com.up42.api.constants.Endpoints;
 import com.up42.api.dtos.workflow.CreateWorkflowRequestDto;
 import com.up42.api.properties.TestProperties;
 import io.restassured.http.ContentType;
 import org.apache.http.HttpStatus;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.ThreadLocalRandom;
