@@ -4,7 +4,6 @@ import com.up42.api.constants.Endpoints;
 import com.up42.api.dtos.login.LoginResponseDto;
 import com.up42.api.properties.TestProperties;
 import io.restassured.http.ContentType;
-import org.apache.http.HttpStatus;
 
 import static com.up42.api.clients.base.BaseClient.BASE_REQUEST_SPEC;
 import static com.up42.api.clients.base.BaseClient.BASE_RESPONSE_SPEC;
