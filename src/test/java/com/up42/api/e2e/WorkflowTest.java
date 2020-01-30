@@ -1,5 +1,6 @@
 package com.up42.api.e2e;
 
+import com.up42.api.auth.OAuthClient;
 import com.up42.api.constants.Endpoints;
 import com.up42.api.dtos.login.LoginResponseDto;
 import com.up42.api.dtos.workflow.CreateWorkflowRequestDto;
@@ -8,6 +9,7 @@ import com.up42.api.properties.TestProperties;
 import io.restassured.http.ContentType;
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.ThreadLocalRandom;
@@ -19,6 +21,13 @@ import static io.restassured.RestAssured.given;
 public class WorkflowTest {
 
     private ThreadLocal<String> workflowId = ThreadLocal.withInitial(() -> null);
+    private ThreadLocal<String> accessToken = ThreadLocal.withInitial(() -> null);
+
+    @BeforeEach
+    void getAccessToken() {
+        String token = OAuthClient.loginAsDefaultUser();
+        accessToken.set(token);
+    }
 
     @Test
     void createWorkflow() {
@@ -26,22 +35,6 @@ public class WorkflowTest {
         String workflowDescription = String.format("createWorkflow %s description", ThreadLocalRandom.current().nextInt());
 
         //@formatter:off
-        LoginResponseDto responseDto =
-            given()
-                    .spec(BASE_REQUEST_SPEC)
-                    .auth()
-                    .basic(TestProperties.CONFIG.getProject().getId(),
-                           TestProperties.CONFIG.getProject().getKey())
-                    .contentType(ContentType.URLENC)
-                    .body("grant_type=client_credentials").
-            when()
-                    .post(Endpoints.OAUTH_TOKEN).
-            then()
-                    .spec(BASE_RESPONSE_SPEC)
-                    .extract()
-                    .body()
-                    .as(LoginResponseDto.class);
-
         CreateWorkflowRequestDto createWorkflowBody = CreateWorkflowRequestDto.builder()
                 .name(workflowName)
                 .description(workflowDescription)
@@ -50,7 +43,7 @@ public class WorkflowTest {
             given()
                     .spec(BASE_REQUEST_SPEC)
                     .auth()
-                    .oauth2(responseDto.getAccessToken())
+                    .oauth2(accessToken.get())
                     .contentType(ContentType.JSON)
                     .body(createWorkflowBody).
             when()
@@ -70,26 +63,10 @@ public class WorkflowTest {
         if (workflowId.get() == null) return;
 
         //@formatter:off
-        LoginResponseDto responseDto =
-                given()
-                        .spec(BASE_REQUEST_SPEC)
-                        .auth()
-                        .basic(TestProperties.CONFIG.getProject().getId(),
-                               TestProperties.CONFIG.getProject().getKey())
-                        .contentType(ContentType.URLENC)
-                        .body("grant_type=client_credentials").
-                when()
-                        .post(Endpoints.OAUTH_TOKEN).
-                then()
-                        .spec(BASE_RESPONSE_SPEC)
-                        .extract()
-                        .body()
-                        .as(LoginResponseDto.class);
-
         given()
                 .spec(BASE_REQUEST_SPEC)
                 .auth()
-                .oauth2(responseDto.getAccessToken()).
+                .oauth2(accessToken.get()).
         when()
                 .delete(Endpoints.WORKFLOWS_WITH_ID, TestProperties.CONFIG.getProject().getId(), workflowId.get()).
         then()
