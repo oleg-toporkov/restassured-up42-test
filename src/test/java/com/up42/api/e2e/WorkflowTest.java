@@ -25,13 +25,6 @@ import static org.hamcrest.Matchers.nullValue;
 public class WorkflowTest {
 
     private ThreadLocal<String> workflowId = ThreadLocal.withInitial(() -> null);
-    private ThreadLocal<String> accessToken = ThreadLocal.withInitial(() -> null);
-
-    @BeforeEach
-    void getAccessToken() {
-        String token = OAuthClient.loginAsDefaultUser().getAccessToken();
-        accessToken.set(token);
-    }
 
     @ParameterizedTest
     @MethodSource("workflowNames")
@@ -40,7 +33,7 @@ public class WorkflowTest {
         LocalDateTime now = ZonedDateTime.now(ZoneId.of("UTC")).withNano(0).withSecond(0).toLocalDateTime();
 
         CreateWorkflowResponseDto createWorkflowResponse =
-            WorkflowClient.createWorkflow(accessToken.get(), name, workflowDescription);
+            WorkflowClient.createWorkflow(name, workflowDescription);
 
         workflowId.set(createWorkflowResponse.getData().getId());
 
@@ -63,9 +56,8 @@ public class WorkflowTest {
     @AfterEach
     void cleanupWorkflow() {
         if (workflowId.get() != null) {
-            WorkflowClient.deleteWorkflow(accessToken.get(), workflowId.get());
+            WorkflowClient.deleteWorkflow(workflowId.get());
             workflowId.set(null);
-            accessToken.set(null);
         }
     }
 
