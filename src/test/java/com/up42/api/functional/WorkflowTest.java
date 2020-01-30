@@ -1,4 +1,4 @@
-package com.up42.api.e2e;
+package com.up42.api.functional;
 
 import com.up42.api.clients.auth.OAuthClient;
 import com.up42.api.clients.workflow.WorkflowClient;

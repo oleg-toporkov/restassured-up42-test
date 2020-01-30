@@ -1,4 +1,4 @@
-package com.up42.api.e2e.negative;
+package com.up42.api.functional.negative;
 
 import com.up42.api.clients.auth.OAuthClient;
 import com.up42.api.constants.Endpoints;
